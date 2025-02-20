@@ -29,10 +29,13 @@ interface Props {
 }
 
 const HangmanDrawing = ({ mistakes }: Props) => {
+  // Show base parts (first 4 parts) always, then add body parts based on mistakes
+  const partsToShow = 4 + mistakes;
+  
   return (
     <div className="w-[150px] h-[150px] my-8">
       <svg width="150" height="150">
-        {HANGMAN_PARTS.slice(0, mistakes + 1).map((d, index) => (
+        {HANGMAN_PARTS.slice(0, partsToShow).map((d, index) => (
           <motion.path
             key={index}
             d={d}
