@@ -32,9 +32,9 @@ const Keyboard = ({
   const currentKeys = isGerman ? KEYS.de : KEYS.en;
 
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-2.5">
       {currentKeys.map((row, i) => (
-        <div key={i} className="flex justify-center gap-1">
+        <div key={i} className="flex justify-center gap-1.5">
           {row.map((key) => {
             const isActive = activeLetters.has(key);
             const isInactive = inactiveLetters.has(key);
@@ -42,7 +42,7 @@ const Keyboard = ({
               <motion.button
                 key={key}
                 className={`
-                  w-8 h-10 rounded-lg text-sm font-medium transition-all
+                  w-10 h-12.5 rounded-lg text-base font-medium transition-all
                   ${
                     isActive
                       ? "bg-emerald-500 text-white"

@@ -77,11 +77,11 @@ const Index = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-md w-full mx-auto"
+        className="max-w-xl w-full mx-auto"
       >
-        <div className="text-center mb-8">
+        <div className="text-center mb-10">
           <motion.h1
-            className="text-3xl font-bold mb-2"
+            className="text-4xl font-bold mb-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
@@ -89,7 +89,7 @@ const Index = () => {
             {t.title}
           </motion.h1>
           <motion.p
-            className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
+            className={`text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -107,11 +107,11 @@ const Index = () => {
 
         <div className={`flex flex-col items-center ${
           isDarkMode ? "bg-gray-800 text-white" : "bg-white"
-        } rounded-2xl shadow-xl p-8`}>
+        } rounded-2xl shadow-xl p-10`}>
           <HangmanDrawing mistakes={incorrectLetters.length} />
 
           <motion.div
-            className="text-4xl font-mono tracking-wider mb-8"
+            className="text-5xl font-mono tracking-wider mb-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
@@ -129,7 +129,7 @@ const Index = () => {
 
           {(isWinner || isLoser) && (
             <motion.button
-              className={`mt-8 px-6 py-2 ${
+              className={`mt-10 px-8 py-3 text-lg ${
                 isDarkMode
                   ? "bg-white text-gray-900 hover:bg-gray-200"
                   : "bg-black text-white hover:bg-gray-800"

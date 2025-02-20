@@ -3,25 +3,25 @@ import { motion } from "framer-motion";
 
 const HANGMAN_PARTS = [
   // Base
-  "M10 140 L140 140",
+  "M12.5 175 L175 175",
   // Vertical pole
-  "M30 140 L30 10",
+  "M37.5 175 L37.5 12.5",
   // Top beam
-  "M30 10 L100 10",
+  "M37.5 12.5 L125 12.5",
   // Rope
-  "M100 10 L100 30",
+  "M125 12.5 L125 37.5",
   // Head (complete circle)
-  "M110 40 A10 10 0 1 1 90 40 A10 10 0 1 1 110 40",
+  "M137.5 50 A12.5 12.5 0 1 1 112.5 50 A12.5 12.5 0 1 1 137.5 50",
   // Body
-  "M100 50 L100 90",
+  "M125 62.5 L125 112.5",
   // Left arm
-  "M100 60 L70 80",
+  "M125 75 L87.5 100",
   // Right arm
-  "M100 60 L130 80",
+  "M125 75 L162.5 100",
   // Left leg
-  "M100 90 L70 120",
+  "M125 112.5 L87.5 150",
   // Right leg
-  "M100 90 L130 120",
+  "M125 112.5 L162.5 150",
 ];
 
 interface Props {
@@ -29,18 +29,17 @@ interface Props {
 }
 
 const HangmanDrawing = ({ mistakes }: Props) => {
-  // Show base parts (first 4 parts) always, then add body parts based on mistakes
   const partsToShow = 4 + mistakes;
   
   return (
-    <div className="w-[150px] h-[150px] my-8">
-      <svg width="150" height="150">
+    <div className="w-[187.5px] h-[187.5px] my-10">
+      <svg width="187.5" height="187.5">
         {HANGMAN_PARTS.slice(0, partsToShow).map((d, index) => (
           <motion.path
             key={index}
             d={d}
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="2.5"
             fill="none"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
