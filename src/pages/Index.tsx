@@ -4,11 +4,24 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import HangmanDrawing from "@/components/HangmanDrawing";
 import Keyboard from "@/components/Keyboard";
-import { getRandomWord, generateWordDisplay, MAX_MISTAKES } from "@/utils/hangmanUtils";
+import GameSettings from "@/components/GameSettings";
+import { getRandomWord, generateWordDisplay, MAX_MISTAKES, translations } from "@/utils/hangmanUtils";
 
 const Index = () => {
-  const [wordToGuess, setWordToGuess] = useState(getRandomWord);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isGerman, setIsGerman] = useState(false);
+  const [wordToGuess, setWordToGuess] = useState(() => getRandomWord(isGerman));
   const [guessedLetters, setGuessedLetters] = useState<Set<string>>(new Set());
+
+  const t = translations[isGerman ? "de" : "en"];
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [isDarkMode]);
 
   const incorrectLetters = [...guessedLetters].filter(
     (letter) => !wordToGuess.includes(letter)
@@ -32,29 +45,35 @@ const Index = () => {
       });
 
       if (!wordToGuess.includes(letter)) {
-        toast.error("Incorrect guess!");
+        toast.error(t.incorrect);
       } else {
-        toast.success("Correct guess!");
+        toast.success(t.correct);
       }
     },
-    [guessedLetters, isWinner, isLoser, wordToGuess]
+    [guessedLetters, isWinner, isLoser, wordToGuess, t]
   );
 
   useEffect(() => {
     if (isWinner) {
-      toast.success("Congratulations! You won!");
+      toast.success(t.congratulations);
     } else if (isLoser) {
-      toast.error("Game Over! The word was: " + wordToGuess);
+      toast.error(`${t.gameOver} ${wordToGuess}`);
     }
-  }, [isWinner, isLoser, wordToGuess]);
+  }, [isWinner, isLoser, wordToGuess, t]);
 
   const resetGame = () => {
-    setWordToGuess(getRandomWord());
+    setWordToGuess(getRandomWord(isGerman));
     setGuessedLetters(new Set());
   };
 
+  useEffect(() => {
+    resetGame();
+  }, [isGerman]);
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100 p-4">
+    <div className={`min-h-screen flex flex-col items-center justify-center bg-gradient-to-b ${
+      isDarkMode ? "from-gray-900 to-gray-800 text-white" : "from-gray-50 to-gray-100"
+    } p-4`}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -67,19 +86,28 @@ const Index = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            Hangman
+            {t.title}
           </motion.h1>
           <motion.p
-            className="text-gray-600"
+            className={`${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            Guess the word to win!
+            {t.subtitle}
           </motion.p>
         </div>
 
-        <div className="flex flex-col items-center bg-white rounded-2xl shadow-xl p-8">
+        <GameSettings
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
+          isGerman={isGerman}
+          setIsGerman={setIsGerman}
+        />
+
+        <div className={`flex flex-col items-center ${
+          isDarkMode ? "bg-gray-800 text-white" : "bg-white"
+        } rounded-2xl shadow-xl p-8`}>
           <HangmanDrawing mistakes={incorrectLetters.length} />
 
           <motion.div
@@ -100,14 +128,18 @@ const Index = () => {
 
           {(isWinner || isLoser) && (
             <motion.button
-              className="mt-8 px-6 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+              className={`mt-8 px-6 py-2 ${
+                isDarkMode
+                  ? "bg-white text-gray-900 hover:bg-gray-200"
+                  : "bg-black text-white hover:bg-gray-800"
+              } rounded-lg transition-colors`}
               onClick={resetGame}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Play Again
+              {t.playAgain}
             </motion.button>
           )}
         </div>
