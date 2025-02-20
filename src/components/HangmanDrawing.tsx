@@ -10,8 +10,8 @@ const HANGMAN_PARTS = [
   "M30 10 L100 10",
   // Rope
   "M100 10 L100 30",
-  // Head
-  "M100 30 A10 10 0 1 1 100 50",
+  // Head (complete circle)
+  "M110 40 A10 10 0 1 1 90 40 A10 10 0 1 1 110 40",
   // Body
   "M100 50 L100 90",
   // Left arm
