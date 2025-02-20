@@ -1,17 +1,25 @@
 
 import { motion } from "framer-motion";
 
-const KEYS = [
-  ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-  ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-  ["Z", "X", "C", "V", "B", "N", "M"],
-];
+const KEYS = {
+  en: [
+    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+    ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+    ["Z", "X", "C", "V", "B", "N", "M"],
+  ],
+  de: [
+    ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P", "Ü"],
+    ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ö", "Ä"],
+    ["Y", "X", "C", "V", "B", "N", "M", "ß"],
+  ],
+};
 
 interface Props {
   disabled: boolean;
   activeLetters: Set<string>;
   inactiveLetters: Set<string>;
   addGuessedLetter: (letter: string) => void;
+  isGerman?: boolean;
 }
 
 const Keyboard = ({
@@ -19,10 +27,13 @@ const Keyboard = ({
   activeLetters,
   inactiveLetters,
   addGuessedLetter,
+  isGerman = false,
 }: Props) => {
+  const currentKeys = isGerman ? KEYS.de : KEYS.en;
+
   return (
     <div className="grid gap-2">
-      {KEYS.map((row, i) => (
+      {currentKeys.map((row, i) => (
         <div key={i} className="flex justify-center gap-1">
           {row.map((key) => {
             const isActive = activeLetters.has(key);

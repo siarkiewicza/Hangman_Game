@@ -124,6 +124,7 @@ const Index = () => {
             activeLetters={new Set(correctLetters)}
             inactiveLetters={new Set(incorrectLetters)}
             addGuessedLetter={addGuessedLetter}
+            isGerman={isGerman}
           />
 
           {(isWinner || isLoser) && (
