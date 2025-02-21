@@ -47,7 +47,7 @@ const Keyboard = ({
                     isActive
                       ? "bg-emerald-500 text-white"
                       : isInactive
-                      ? "bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-300 cursor-not-allowed"
+                      ? "bg-gray-200 dark:bg-purple-900/50 text-gray-400 dark:text-purple-200 cursor-not-allowed"
                       : "bg-white dark:bg-gray-600 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500 active:bg-gray-200 dark:active:bg-gray-400"
                   }
                   shadow-sm hover:shadow-md
