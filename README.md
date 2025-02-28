@@ -1,3 +1,6 @@
+![Frontend interface](images/Hangman.png)
+
+
 # Welcome to your Lovable project
 
 ## Project info
